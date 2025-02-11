@@ -1,0 +1,65 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.app.toaster'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+
+	// FCM
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
+	implementation 'com.squareup.okhttp3:okhttp:4.10.0'  // Firebase 서버로 푸시 메시지 전송 시 필요
+
+	//Query DSL
+
+	// S3 AWS
+	implementation("software.amazon.awssdk:bom:2.21.0")
+	implementation("software.amazon.awssdk:s3:2.21.0")
+	implementation 'org.apache.httpcomponents:httpclient:4.5.9'
+
+	// slack
+	implementation 'com.slack.api:slack-api-client:1.28.0'
+	implementation 'com.google.code.gson:gson:2.10.1'
+
+	//sqs
+	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.1")
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
+	implementation "org.springframework.cloud:spring-cloud-aws-messaging:2.2.6.RELEASE"
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
